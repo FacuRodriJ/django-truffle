@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.db import OperationalError
 
 
 class CoreConfig(AppConfig):
@@ -8,6 +9,9 @@ class CoreConfig(AppConfig):
     # Crear un superusuario al ejecutar el servidor
     def ready(self):
         from django.contrib.auth.models import User
-        if not User.objects.filter(is_superuser=True).exists():
-            User.objects.create_superuser('admin', 'admin@localhost', 'admin')
+        try:
+            if not User.objects.filter(is_superuser=True).exists():
+                User.objects.create_superuser('admin', 'admin@localhost', 'admin')
+        except OperationalError:
+            pass
 

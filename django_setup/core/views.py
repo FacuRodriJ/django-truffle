@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 
-# from core.models import Rendicion, Presentacion
+from .models import Rendicion
 
 
 class RendicionListView(ListView):
@@ -9,7 +9,7 @@ class RendicionListView(ListView):
     Vista de Listado de Rendiciones
     """
 
-    # model = Rendicion
+    model = Rendicion
     template_name = "rendicion_list.html"
     context_object_name = "rendiciones"
 
