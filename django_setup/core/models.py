@@ -9,6 +9,9 @@ class Municipio(models.Model):
     nombre = models.CharField(max_length=200)
     categoria = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.nombre
+
     class Meta:
         verbose_name = "Municipio"
         verbose_name_plural = "Municipios"
@@ -24,6 +27,19 @@ class Rendicion(models.Model):
     periodo = models.IntegerField()
     fecha_vto_presentacion = models.DateField()
 
+    def get_estado(self):
+        if self.presentacion_set.count() == 0:
+            return "No Presentada"
+        else:
+            # Obtener el estado de la ultima presentacion
+            return self.presentacion_set.last().get_estado()
+
+    def get_nro_presentacion(self):
+        if self.presentacion_set.count() == 0:
+            return 0
+        else:
+            return self.presentacion_set.last().nro_presentacion
+
     class Meta:
         verbose_name = "Rendicion"
         verbose_name_plural = "Rendiciones"
@@ -35,9 +51,15 @@ class Presentacion(models.Model):
     """
 
     rendicion = models.ForeignKey(Rendicion, on_delete=models.PROTECT)
+    nro_presentacion = models.IntegerField()
     fecha_presentacion = models.DateField(blank=True, null=True)
-    numero_presentacion = models.IntegerField()
-    estado = models.BooleanField()
+    estado = models.BooleanField(default=False)
+
+    def get_estado(self):
+        if self.estado:
+            return "Presentada"
+        else:
+            return "En Carga"
 
     class Meta:
         verbose_name = "Presentacion"
@@ -60,6 +82,9 @@ class DocumentoRequerido(models.Model):
 
     def get_extensiones_permitidas(self):
         return self.extensiones_permitidas.split(",")
+
+    def __str__(self):
+        return self.descripcion
 
     class Meta:
         verbose_name = "Documento Requerido"

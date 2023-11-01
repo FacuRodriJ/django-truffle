@@ -2,4 +2,51 @@
 
 {% block content %}
     <h1>{{ title }}</h1>
+    <div class="card">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <div id="wrapper"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_scripts %}
+    <script>
+        new gridjs.Grid({
+            search: true,
+            pagination: true,
+            sort: true,
+            columns: ["Municipio", "Año", "Período", "N° Presentaciones", "Acciones"],
+            data: [
+                {% for rendicion in rendiciones %}
+                    [
+                        "{{ rendicion.municipio }}",
+                        "{{ rendicion.anio }}",
+                        "{{ rendicion.periodo }}",
+                        "{{ rendicion.get_nro_presentacion }}",
+                        gridjs.html(
+                            "<div class='btn-group'>" +
+                            "<a href='{% url 'rendicion_form' rendicion.pk %}' class='btn btn-outline-secondary'>" +
+                            "<i class='bi bi-pencil-square'></i>" +
+                            "</a>" +
+                            "</div>"
+                        )
+                    ],
+                {% endfor %}
+            ],
+            language: {
+                search: {
+                    placeholder: "Buscar..."
+                },
+                pagination: {
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    showing: "Mostrando",
+                    results: () => "resultados",
+                    of: "de",
+                    to: "al",
+                }
+            }
+        }).render(document.getElementById("wrapper"));
+    </script>
 {% endblock %}

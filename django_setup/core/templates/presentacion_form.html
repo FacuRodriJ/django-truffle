@@ -1,0 +1,107 @@
+{% extends "root.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <div class="card">
+        <div class="card-header">Detalle Rendición Municipal</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Municipio:</strong> {{ presentacion.rendicion.municipio }}</p>
+                    <p><strong>Año:</strong> {{ presentacion.rendicion.anio }}</p>
+                    <p><strong>Periodo:</strong> {{ presentacion.rendicion.periodo }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Vencimiento:</strong> {{ presentacion.rendicion.fecha_vto_presentacion }}</p>
+                    <p><strong>Nro. Presentación:</strong> {{ presentacion.nro_presentacion }}</p>
+                </div>
+            </div>
+            <hr>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_documento_requerido"
+                                   class="form-label">{{ form.documento_requerido.label }}</label>
+                            {{ form.documento_requerido }}
+                            {{ form.documento_requerido.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="id_archivo">{{ form.archivo.label }}</label>
+                            {{ form.archivo }}
+                            {{ form.archivo.errors }}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+            <hr>
+            <!-- Tabla con los archivos cargados -->
+            <p>Archivos subidos</p>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class=" table-light">
+                    <tr>
+                        <th scope="col">Documento</th>
+                        <th scope="col">Archivo</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for doc in presentacion.documentorendicion_set.all %}
+                        <tr>
+                            <td>{{ doc.documento_requerido }}</td>
+                            <td><a href="#}">{{ doc.archivo }}</a></td>
+                            <td>
+                                <button type="button" class="btn btn-danger" value="{{ doc.pk }}">Eliminar</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Agregar dos boton centrados, uno para volver a la lista de presentaciones y otro para Presentar -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary">Presentar</button>
+                        <a href="{% url 'rendicion_list' %}" class="btn btn-secondary">Regresar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_scripts %}
+    <script>
+        $(document).ready(function () {
+            $('.btn-danger').click(function () {
+                var pk = $(this).val();
+                $.ajax({
+                    url: window.location.href,
+                    type: "POST",
+                    data: {
+                        'action': 'delete',
+                        'pk': pk,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
