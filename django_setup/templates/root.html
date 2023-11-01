@@ -9,28 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="{% static 'node_modules/materialize-css/dist/css/materialize.min.css' %}">
-    <link rel="stylesheet" href="{% static 'node_modules/material-icons/iconfont/material-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'node_modules/gridjs/dist/theme/mermaid.min.css' %}">
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-            <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-            <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-            <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-          </ul>
-        </div>
-      </nav>
-    <div>
-        {% block content %}
-        {% endblock %}
-    </div>
-    <!-- Compiled and minified JavaScript -->
-    <script src="{% static 'node_modules/materialize-css/dist/js/materialize.min.js' %}"></script>
+<nav>
+</nav>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<!-- Compiled and minified JavaScript -->
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'node_modules/gridjs/dist/gridjs.umd.js' %}"></script>
+{% block body_scripts %}
+{% endblock %}
 </body>
-
 </html>

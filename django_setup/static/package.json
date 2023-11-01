@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "material-icons": "^1.13.12",
-    "materialize-css": "^1.0.0-rc.2"
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.1",
+    "gridjs": "^6.0.6",
+    "jquery": "^3.7.1"
   }
 }
