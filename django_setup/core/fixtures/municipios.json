@@ -1,0 +1,602 @@
+[
+    {
+        "model": "core.municipio",
+        "pk": "540007",
+        "fields": {
+            "nombre": "Apóstoles",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540028,
+        "fields": {
+            "nombre": "Tres Capones",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540084,
+        "fields": {
+            "nombre": "Mártires",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540168,
+        "fields": {
+            "nombre": "Santiago de Liniers",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540504,
+        "fields": {
+            "nombre": "San Pedro",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540042,
+        "fields": {
+            "nombre": "Campo Grande",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540322,
+        "fields": {
+            "nombre": "Puerto Rico",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540343,
+        "fields": {
+            "nombre": "Montecarlo",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540196,
+        "fields": {
+            "nombre": "El Soberbio",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540070,
+        "fields": {
+            "nombre": "Cerro Corá",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540112,
+        "fields": {
+            "nombre": "Garupá",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540098,
+        "fields": {
+            "nombre": "Santa Ana",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540427,
+        "fields": {
+            "nombre": "Corpus",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540441,
+        "fields": {
+            "nombre": "Gobernador Roca",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540119,
+        "fields": {
+            "nombre": "Posadas",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540406,
+        "fields": {
+            "nombre": "Panambí",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540448,
+        "fields": {
+            "nombre": "Hipólito Irigoyen",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540091,
+        "fields": {
+            "nombre": "Profundidad",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540014,
+        "fields": {
+            "nombre": "Azara",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540518,
+        "fields": {
+            "nombre": "Colonia Aurora",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540105,
+        "fields": {
+            "nombre": "Fachinal",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540301,
+        "fields": {
+            "nombre": "El Alcázar",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540294,
+        "fields": {
+            "nombre": "Capioví",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540469,
+        "fields": {
+            "nombre": "Santo Pipo",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540420,
+        "fields": {
+            "nombre": "Colonia Polana",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540273,
+        "fields": {
+            "nombre": "Gobernador López",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540455,
+        "fields": {
+            "nombre": "Jardín América",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540252,
+        "fields": {
+            "nombre": "Caa Yarí",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540287,
+        "fields": {
+            "nombre": "Olegario V. Andrade",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540259,
+        "fields": {
+            "nombre": "Cerro Azul",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540434,
+        "fields": {
+            "nombre": "General J. J. Urquiza",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540511,
+        "fields": {
+            "nombre": "Alba Posse",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540392,
+        "fields": {
+            "nombre": "Los Helechos",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540203,
+        "fields": {
+            "nombre": "San Vicente",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540490,
+        "fields": {
+            "nombre": "Mojón Grande",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540378,
+        "fields": {
+            "nombre": "Gral. Alvear",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540497,
+        "fields": {
+            "nombre": "San Javier",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540329,
+        "fields": {
+            "nombre": "Ruiz de Montoya",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540133,
+        "fields": {
+            "nombre": "Santa María",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540385,
+        "fields": {
+            "nombre": "Guaraní",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540413,
+        "fields": {
+            "nombre": "San Martín",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540021,
+        "fields": {
+            "nombre": "San José",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540210,
+        "fields": {
+            "nombre": "Puerto Esperanza",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540483,
+        "fields": {
+            "nombre": "Itacaruaré",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540238,
+        "fields": {
+            "nombre": "Almafuerte",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540371,
+        "fields": {
+            "nombre": "Colonia Alberdi",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540280,
+        "fields": {
+            "nombre": "Leandro N. Alem",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540140,
+        "fields": {
+            "nombre": "Colonia Delicia",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540175,
+        "fields": {
+            "nombre": "Bernardo de Irigoyen",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540147,
+        "fields": {
+            "nombre": "Colonia Victoria",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540525,
+        "fields": {
+            "nombre": "25 de Mayo",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540399,
+        "fields": {
+            "nombre": "Oberá",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540217,
+        "fields": {
+            "nombre": "Iguazú",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540315,
+        "fields": {
+            "nombre": "Leoni",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540336,
+        "fields": {
+            "nombre": "Caraguatay",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540364,
+        "fields": {
+            "nombre": "Campo Viera",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540266,
+        "fields": {
+            "nombre": "Dos Arroyos",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540126,
+        "fields": {
+            "nombre": "Concepción de la Sierra",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540245,
+        "fields": {
+            "nombre": "Arroyo del Medio",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540161,
+        "fields": {
+            "nombre": "9 de Julio",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540056,
+        "fields": {
+            "nombre": "Bonpland",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540462,
+        "fields": {
+            "nombre": "San Ignacio",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540182,
+        "fields": {
+            "nombre": "Comandante A. Guacurary",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540189,
+        "fields": {
+            "nombre": "San Antonio",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540035,
+        "fields": {
+            "nombre": "Aristóbulo del Valle",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540476,
+        "fields": {
+            "nombre": "Ameghino",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540357,
+        "fields": {
+            "nombre": "Campo Ramón",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540154,
+        "fields": {
+            "nombre": "Eldorado",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540350,
+        "fields": {
+            "nombre": "Puerto Piray",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540308,
+        "fields": {
+            "nombre": "Garuhapé",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540231,
+        "fields": {
+            "nombre": "Colonia Wanda",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540049,
+        "fields": {
+            "nombre": "Dos de Mayo",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540063,
+        "fields": {
+            "nombre": "Candelaria",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540077,
+        "fields": {
+            "nombre": "Loreto",
+            "categoria": "Municipio"
+        }
+    },
+    {
+        "model": "core.municipio",
+        "pk": 540224,
+        "fields": {
+            "nombre": "Libertad",
+            "categoria": "Municipio"
+        }
+    }
+]
