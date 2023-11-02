@@ -1,9 +1,8 @@
 {% extends "root.html" %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
     <div class="card">
-        <div class="card-header">Detalle Rendición Municipal</div>
+        <div class="card-header">{{ title }}</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -61,7 +60,9 @@
                             <td>{{ doc.documento_requerido }}</td>
                             <td><a href="#}">{{ doc.archivo }}</a></td>
                             <td>
-                                <button type="button" class="btn btn-danger" value="{{ doc.pk }}">Eliminar</button>
+                                <button type="button" class="btn btn-outline-danger btn-delete" value="{{ doc.pk }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -72,8 +73,8 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary">Presentar</button>
-                        <a href="{% url 'rendicion_list' %}" class="btn btn-secondary">Regresar</a>
+                        <button type="button" class="btn btn-primary btn-presentar">Presentar</button>
+                        <a href="{% url 'core:rendicion_list' %}" class="btn btn-secondary">Regresar</a>
                     </div>
                 </div>
             </div>
@@ -84,24 +85,43 @@
 {% block body_scripts %}
     <script>
         $(document).ready(function () {
-            $('.btn-danger').click(function () {
-                var pk = $(this).val();
+            function ajaxPOST(url, data, success) {
+                let csrftoken = '{{ csrf_token }}';
                 $.ajax({
-                    url: window.location.href,
+                    url: url,
                     type: "POST",
-                    data: {
-                        'action': 'delete',
-                        'pk': pk,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
+                    data: data,
                     dataType: 'json',
-                    success: function (response) {
-                        if (response.status) {
-                            location.reload();
-                        }
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    },
+                    success: success
+                });
+            }
+
+            $('.btn-delete').click(function () {
+                var pk = $(this).val();
+                ajaxPOST(window.location.href, {
+                    'action': 'delete',
+                    'pk': pk
+                }, function (response) {
+                    if (response.status) {
+                        location.reload();
+                    }
+                });
+            });
+
+            $('.btn-presentar').click(function () {
+                ajaxPOST(window.location.href, {
+                    'action': 'presentar',
+                    'pk': '{{ presentacion.pk }}'
+                }, function (response) {
+                    if (response.status) {
+                        window.location.href = response.url;
                     }
                 });
             });
         });
+
     </script>
 {% endblock %}

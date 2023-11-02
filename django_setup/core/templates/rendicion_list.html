@@ -1,9 +1,8 @@
 {% extends "root.html" %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
     <div class="card">
-        <div class="card-header">Header</div>
+        <div class="card-header">{{ title }}</div>
         <div class="card-body">
             <div id="wrapper"></div>
         </div>
@@ -16,18 +15,22 @@
             search: true,
             pagination: true,
             sort: true,
-            columns: ["Municipio", "Año", "Período", "N° Presentaciones", "Acciones"],
+            columns: ["Municipio", "Año", "Período", "Estado", "N° Presentaciones", "Acciones"],
             data: [
                 {% for rendicion in rendiciones %}
                     [
                         "{{ rendicion.municipio }}",
                         "{{ rendicion.anio }}",
                         "{{ rendicion.periodo }}",
+                        "{{ rendicion.get_estado }}",
                         "{{ rendicion.get_nro_presentacion }}",
                         gridjs.html(
                             "<div class='btn-group'>" +
-                            "<a href='{% url 'rendicion_form' rendicion.pk %}' class='btn btn-outline-secondary'>" +
+                            "<a href='{% url 'core:rendicion_form' rendicion.pk %}' class='btn btn-outline-secondary'>" +
                             "<i class='bi bi-pencil-square'></i>" +
+                            "</a>" +
+                            "<a href='{% url 'core:rendicion_detail' rendicion.pk %}' class='btn btn-outline-secondary'>" +
+                            "<i class='bi bi-eye'></i>" +
                             "</a>" +
                             "</div>"
                         )

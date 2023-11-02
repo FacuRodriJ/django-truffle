@@ -1,9 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import ListView, UpdateView, CreateView, FormView
-from django.urls import reverse_lazy, reverse
-from django import forms
+import datetime
 from django.http import JsonResponse
+from django.urls import reverse
+from django.views.generic import ListView, FormView, DetailView
 
+from .forms import DocumentoRendicionForm
 from .models import Rendicion, Presentacion, DocumentoRendicion
 
 
@@ -18,39 +18,41 @@ class RendicionListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Listado de Rendiciones"
+        context["title"] = "Listado de Rendiciones Municipales"
         return context
 
 
-class DocumentoRendicionForm(forms.ModelForm):
+class RendicionDetailView(DetailView):
     """
-    Formulario de Presentaciones
-    """
-
-    class Meta:
-        model = DocumentoRendicion
-        fields = ["archivo", "documento_requerido"]
-        widgets = {
-            "archivo": forms.FileInput(attrs={"class": "form-control"}),
-            "documento_requerido": forms.Select(attrs={"class": "form-select"}),
-        }
-
-
-class PresentacionFormView(FormView):
-    """
-    Vista de Presentación de Rendiciones
+    Vista de Detalle de Rendicion
     """
 
-    template_name = "presentacion_form.html"
+    model = Rendicion
+    template_name = "rendicion_detail.html"
+    context_object_name = "rendicion"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Detalle de Rendición Municipal"
+        context["presentaciones"] = self.object.presentacion_set.filter(estado=True)
+        return context
+
+
+class RendicionFormView(FormView):
+    """
+    Vista del Formulario de Rendicion
+    """
+
+    template_name = "rendicion_form.html"
     form_class = DocumentoRendicionForm
 
     def get_success_url(self):
-        return reverse("rendicion_form", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("core:rendicion_form", kwargs={"pk": self.kwargs["pk"]})
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         # Se obtiene la rendicion
         rendicion = Rendicion.objects.get(pk=self.kwargs["pk"])
-        if rendicion.presentacion_set.count() == 0 or rendicion.presentacion_set.filter(estado=False).count() == 0:
+        if rendicion.presentacion_set.count() == 0:
             # Se crea la presentacion
             presentacion = Presentacion(rendicion=rendicion, nro_presentacion=1)
             presentacion.save()
@@ -60,27 +62,52 @@ class PresentacionFormView(FormView):
             presentacion = Presentacion(rendicion=rendicion,
                                         nro_presentacion=rendicion.presentacion_set.last().nro_presentacion + 1)
             presentacion.save()
-        elif not rendicion.presentacion_set.last().estado:
+        else:
             # Se obtiene la ultima presentacion con estado "En Carga"
             presentacion = rendicion.presentacion_set.filter(estado=False).last()
         # Guardar en la variable necesario para poder usarlo en el template
         request.presentacion = presentacion
-        return super().dispatch(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Presentación de Rendición"
+        context["title"] = "Formulario de Rendición Municipal"
         context["presentacion"] = self.request.presentacion
         return context
 
     def form_valid(self, form):
-        form.instance.presentacion = self.request.presentacion
+        rendicion = Rendicion.objects.get(pk=self.kwargs["pk"])
+        form.instance.presentacion = rendicion.presentacion_set.last()
         form.save()
         return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
         # Si se preciona el boton "Eliminar" se elimina el archivo
-        if request.POST["action"] == "delete":
-            DocumentoRendicion.objects.get(pk=request.POST["pk"]).delete()
-            return JsonResponse({"status": "ok"})
+        if "action" in request.POST:
+            if request.POST["action"] == "delete":
+                DocumentoRendicion.objects.get(pk=request.POST["pk"]).delete()
+                return JsonResponse({"status": "ok"})
+            if request.POST["action"] == "presentar":
+                # Se obtiene la presentacion
+                presentacion = Presentacion.objects.get(pk=request.POST["pk"])
+                # Se cambia el estado de la presentacion
+                presentacion.estado = True
+                presentacion.fecha_presentacion = datetime.date.today()
+                presentacion.save()
+                return JsonResponse({"status": "ok", "url": reverse("core:rendicion_list")})
         return super().post(request, *args, **kwargs)
+
+
+class PresentacionDetailView(DetailView):
+    """
+    Vista de Detalle de Presentacion
+    """
+
+    model = Presentacion
+    template_name = "presentacion_detail.html"
+    context_object_name = "presentacion"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Detalle de Presentación"
+        return context

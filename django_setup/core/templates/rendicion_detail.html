@@ -1,0 +1,55 @@
+{% extends "root.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">{{ title }}</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Municipio:</strong> {{ rendicion.municipio }}</p>
+                    <p><strong>Año:</strong> {{ rendicion.anio }}</p>
+                    <p><strong>Periodo:</strong> {{ rendicion.periodo }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Vencimiento:</strong> {{ rendicion.fecha_vto_presentacion }}</p>
+                    <p><strong>Nro. Presentación:</strong> {{ rendicion.get_nro_presentacion }}</p>
+                </div>
+            </div>
+            <hr>
+            <p>Presentaciones Realizadas</p>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class=" table-light">
+                    <tr>
+                        <th scope="col">Municipio</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Período</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Fecha Presentación</th>
+                        <th scope="col">N° Presentaciones</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for presentacion in presentaciones %}
+                        <tr>
+                            <td>{{ presentacion.rendicion.municipio }}</td>
+                            <td>{{ presentacion.rendicion.anio }}</td>
+                            <td>{{ presentacion.rendicion.periodo }}</td>
+                            <td>{{ presentacion.get_estado }}</td>
+                            <td>{{ presentacion.fecha_presentacion }}</td>
+                            <td>{{ presentacion.nro_presentacion }}</td>
+                            <td>
+                                <a href="{% url 'core:presentacion_detail' presentacion.pk %}"
+                                   class="btn btn-outline-secondary">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
