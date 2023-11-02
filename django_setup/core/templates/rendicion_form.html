@@ -69,7 +69,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Agregar dos boton centrados, uno para volver a la lista de presentaciones y otro para Presentar -->
             <div class="row">
                 <div class="col-xs-12">
                     <div class="text-center">
@@ -105,8 +104,10 @@
                     'action': 'delete',
                     'pk': pk
                 }, function (response) {
-                    if (response.status) {
+                    if (response.status === "ok") {
                         location.reload();
+                    } else {
+                        alert(response.message);
                     }
                 });
             });
@@ -116,8 +117,10 @@
                     'action': 'presentar',
                     'pk': '{{ presentacion.pk }}'
                 }, function (response) {
-                    if (response.status) {
+                    if (response.status === "ok") {
                         window.location.href = response.url;
+                    } else {
+                        alert(response.message);
                     }
                 });
             });

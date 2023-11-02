@@ -1,10 +1,10 @@
-import datetime
-from django.http import JsonResponse
 from django.urls import reverse
 from django.views.generic import ListView, FormView, DetailView
+from django.core.exceptions import ValidationError
 
 from .forms import DocumentoRendicionForm
-from .models import Rendicion, Presentacion, DocumentoRendicion
+from .http_verbs import rendicion_get, rendicion_post
+from .models import Rendicion, Presentacion
 
 
 class RendicionListView(ListView):
@@ -34,7 +34,7 @@ class RendicionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Detalle de Rendición Municipal"
-        context["presentaciones"] = self.object.presentacion_set.filter(estado=True)
+        context["presentaciones"] = self.object.presentacion_set.filter(estado=True).order_by("-nro_presentacion")
         return context
 
 
@@ -50,22 +50,16 @@ class RendicionFormView(FormView):
         return reverse("core:rendicion_form", kwargs={"pk": self.kwargs["pk"]})
 
     def get(self, request, *args, **kwargs):
-        # Se obtiene la rendicion
         rendicion = Rendicion.objects.get(pk=self.kwargs["pk"])
         if rendicion.presentacion_set.count() == 0:
-            # Se crea la presentacion
             presentacion = Presentacion(rendicion=rendicion, nro_presentacion=1)
             presentacion.save()
-        # Si la ultima presentacion esta presentada se debe crear una nueva presentacion
         elif rendicion.presentacion_set.last().estado:
-            # Se crea la presentacion
-            presentacion = Presentacion(rendicion=rendicion,
-                                        nro_presentacion=rendicion.presentacion_set.last().nro_presentacion + 1)
+            nro_presentacion = rendicion.presentacion_set.last().nro_presentacion + 1
+            presentacion = Presentacion(rendicion=rendicion, nro_presentacion=nro_presentacion)
             presentacion.save()
         else:
-            # Se obtiene la ultima presentacion con estado "En Carga"
             presentacion = rendicion.presentacion_set.filter(estado=False).last()
-        # Guardar en la variable necesario para poder usarlo en el template
         request.presentacion = presentacion
         return super().get(request, *args, **kwargs)
 
@@ -82,19 +76,8 @@ class RendicionFormView(FormView):
         return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
-        # Si se preciona el boton "Eliminar" se elimina el archivo
         if "action" in request.POST:
-            if request.POST["action"] == "delete":
-                DocumentoRendicion.objects.get(pk=request.POST["pk"]).delete()
-                return JsonResponse({"status": "ok"})
-            if request.POST["action"] == "presentar":
-                # Se obtiene la presentacion
-                presentacion = Presentacion.objects.get(pk=request.POST["pk"])
-                # Se cambia el estado de la presentacion
-                presentacion.estado = True
-                presentacion.fecha_presentacion = datetime.date.today()
-                presentacion.save()
-                return JsonResponse({"status": "ok", "url": reverse("core:rendicion_list")})
+            return rendicion_post(request)
         return super().post(request, *args, **kwargs)
 
 
