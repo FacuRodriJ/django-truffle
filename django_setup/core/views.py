@@ -2,7 +2,7 @@ from django.urls import reverse
 from django.views.generic import ListView, FormView, DetailView
 from django.core.exceptions import ValidationError
 
-from .forms import DocumentoRendicionForm
+from .forms import DocumentoForm
 from .http_verbs import rendicion_get, rendicion_post
 from .models import Rendicion, Presentacion
 
@@ -40,11 +40,11 @@ class RendicionDetailView(DetailView):
 
 class RendicionFormView(FormView):
     """
-    Vista del Formulario de Rendicion
+    Vista del Formulario de Rendición
     """
 
     template_name = "rendicion_form.html"
-    form_class = DocumentoRendicionForm
+    form_class = DocumentoForm
 
     def get_success_url(self):
         return reverse("core:rendicion_form", kwargs={"pk": self.kwargs["pk"]})
@@ -60,13 +60,12 @@ class RendicionFormView(FormView):
             presentacion.save()
         else:
             presentacion = rendicion.presentacion_set.filter(estado=False).last()
-        request.presentacion = presentacion
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Formulario de Rendición Municipal"
-        context["presentacion"] = self.request.presentacion
+        context["presentacion"] = Presentacion.objects.filter(rendicion=self.kwargs["pk"]).last()
         return context
 
     def form_valid(self, form):

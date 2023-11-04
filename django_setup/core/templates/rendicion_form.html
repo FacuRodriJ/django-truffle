@@ -55,13 +55,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for doc in presentacion.documentorendicion_set.all %}
+                    {% for doc in presentacion.documento_set.all %}
                         <tr>
                             <td>{{ doc.documento_requerido }}</td>
-                            <td><a href="#}">{{ doc.archivo }}</a></td>
+                            <td>{{ doc.nombre_archivo }}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-danger btn-delete" value="{{ doc.pk }}">
                                     <i class="bi bi-trash"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="bi bi-download"></i>
                                 </button>
                             </td>
                         </tr>

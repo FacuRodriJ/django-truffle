@@ -1,9 +1,11 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
 class Municipio(models.Model):
     """
     Modelo de Municipios
+    En este prototipo, los municipios solo se crean/editan desde el panel de administración
     """
 
     nombre = models.CharField(max_length=200)
@@ -20,6 +22,7 @@ class Municipio(models.Model):
 class Rendicion(models.Model):
     """
     Modelo de Rendiciones Municipales
+    En este prototipo, las rendiciones solo se crean/editan desde el panel de administración
     """
 
     municipio = models.ForeignKey(Municipio, on_delete=models.PROTECT)
@@ -40,8 +43,11 @@ class Rendicion(models.Model):
         else:
             return self.presentacion_set.last().nro_presentacion
 
+    def __str__(self):
+        return f"{self.municipio.nombre} - {self.anio} - {self.periodo}"
+
     class Meta:
-        verbose_name = "Rendicion"
+        verbose_name = "Rendición"
         verbose_name_plural = "Rendiciones"
 
 
@@ -61,14 +67,19 @@ class Presentacion(models.Model):
         else:
             return "En Carga"
 
+    def __str__(self):
+        return f"{self.rendicion} - {self.nro_presentacion}"
+
     class Meta:
-        verbose_name = "Presentacion"
+        verbose_name = "Presentación"
         verbose_name_plural = "Presentaciones"
 
 
 class DocumentoRequerido(models.Model):
     """
     Modelo de Documentos Requeridos
+    En este prototipo, los documentos requeridos solo se crean/editan desde el panel de administración
+    Los documentos requeridos son todos los documentos que se deben presentar en una rendición
     """
 
     descripcion = models.CharField(max_length=200)
@@ -91,17 +102,33 @@ class DocumentoRequerido(models.Model):
         verbose_name_plural = "Documentos Requeridos"
 
 
-class DocumentoRendicion(models.Model):
+class Documento(models.Model):
     """
-    Modelo de Documentos de Rendiciones Municipales
+    Modelo de Documentos para las Presentaciones de Rendiciones Municipales
     """
 
     presentacion = models.ForeignKey(Presentacion, on_delete=models.PROTECT)
     documento_requerido = models.ForeignKey(
         DocumentoRequerido, on_delete=models.PROTECT
     )
-    archivo = models.FileField(upload_to="documentos_rendiciones/")
+
+    def file_directory_path(self, filename):
+        return 'doc/presentacion-{0}/{1}'.format(self.presentacion.pk, filename)
+
+    archivo = models.FileField(upload_to=file_directory_path)
+
+    def nombre_archivo(self):
+        return self.archivo.name.split("/")[-1]
+
+    def clean(self):
+        # Validar que la extension del archivo sea una de las permitidas
+        extension = self.archivo.name.split(".")[-1]
+        if extension not in self.documento_requerido.get_extensiones_permitidas():
+            raise ValidationError(
+                f"La extensión del archivo es incorrecta. Las extensiones permitidas son: "
+                f"{self.documento_requerido.get_extensiones_permitidas()}"
+            )
 
     class Meta:
-        verbose_name = "Documento de Rendicion"
-        verbose_name_plural = "Documentos de Rendiciones"
+        verbose_name = "Documento"
+        verbose_name_plural = "Documentos"

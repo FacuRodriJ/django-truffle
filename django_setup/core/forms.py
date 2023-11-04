@@ -1,15 +1,15 @@
 from django import forms
 
-from .models import DocumentoRendicion
+from .models import Documento
 
 
-class DocumentoRendicionForm(forms.ModelForm):
+class DocumentoForm(forms.ModelForm):
     """
     Formulario de Presentaciones
     """
 
     class Meta:
-        model = DocumentoRendicion
+        model = Documento
         fields = ["archivo", "documento_requerido"]
         widgets = {
             "archivo": forms.FileInput(attrs={"class": "form-control"}),
