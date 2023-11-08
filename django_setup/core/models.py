@@ -1,3 +1,5 @@
+import hashlib
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -69,6 +71,14 @@ class Presentacion(models.Model):
 
     def __str__(self):
         return f"{self.rendicion} - {self.nro_presentacion}"
+
+    # Metodo para obtener el hash de cada archivo
+    def get_hash_list(self):
+        documents = self.documento_set.all()
+        hash_list = []
+        for doc in documents:
+            hash_list.append(hashlib.sha256(doc.archivo.read()).hexdigest())
+        return hash_list
 
     class Meta:
         verbose_name = "Presentación"

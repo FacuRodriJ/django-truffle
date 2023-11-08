@@ -3,7 +3,7 @@ from django.views.generic import ListView, FormView, DetailView
 from django.core.exceptions import ValidationError
 
 from .forms import DocumentoForm
-from .http_verbs import rendicion_get, rendicion_post
+from .http_verbs import rendicion_get, rendicion_post, presentacion_post
 from .models import Rendicion, Presentacion
 
 
@@ -93,3 +93,8 @@ class PresentacionDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Detalle de Presentación"
         return context
+
+    def post(self, request, *args, **kwargs):
+        if "action" in request.POST:
+            return presentacion_post(request)
+        return super().post(request, *args, **kwargs)
