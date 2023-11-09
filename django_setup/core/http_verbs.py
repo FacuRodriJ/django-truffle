@@ -7,10 +7,6 @@ from .models import Rendicion, Presentacion, Documento
 from .web3_connector import get_contract, get_provider
 
 
-def rendicion_get(self, request, *args, **kwargs):
-    return 0
-
-
 def rendicion_post(request):
     if request.POST["action"] == "delete":
         Documento.objects.get(pk=request.POST["pk"]).delete()
@@ -28,7 +24,9 @@ def rendicion_post(request):
             {"from": w3.eth.accounts[0]})
 
         presentacion.save()
-        return JsonResponse({"status": "ok", "url": reverse("core:rendicion_list")})
+        return JsonResponse(
+            {"status": "ok", "url": reverse("core:rendicion_list"),
+             "message": "Presentación realizada con éxito, el hash utilizado es SHA256"})
 
 
 def presentacion_post(request):

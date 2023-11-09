@@ -33,9 +33,10 @@
                             <td>{{ doc.documento_requerido }}</td>
                             <td><a href="#}">{{ doc.nombre_archivo }}</a></td>
                             <td>
-                                <button type="button" class="btn btn-outline-secondary">
+                                <a href="{{ doc.archivo.url }}" target="_blank"
+                                   class="btn btn-outline-secondary">
                                     <i class="bi bi-download"></i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -80,6 +81,8 @@
                 }, function (response) {
                     if (response.status === "ok") {
                         alert("Archivos validados correctamente");
+                    } else {
+                        alert(response.message);
                     }
                 });
             });

@@ -63,9 +63,10 @@
                                 <button type="button" class="btn btn-outline-danger btn-delete" value="{{ doc.pk }}">
                                     <i class="bi bi-trash"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline-secondary">
+                                <a href="{{ doc.archivo.url }}" target="_blank"
+                                   class="btn btn-outline-secondary">
                                     <i class="bi bi-download"></i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -121,6 +122,7 @@
                     'pk': '{{ presentacion.pk }}'
                 }, function (response) {
                     if (response.status === "ok") {
+                        alert(response.message);
                         window.location.href = response.url;
                     } else {
                         alert(response.message);
