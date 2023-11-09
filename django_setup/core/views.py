@@ -1,9 +1,9 @@
 from django.urls import reverse
-from django.views.generic import ListView, FormView, DetailView
+from django.views.generic import ListView, FormView, DetailView, TemplateView
 from django.core.exceptions import ValidationError
 
 from .forms import DocumentoForm
-from .http_verbs import rendicion_get, rendicion_post, presentacion_post
+from .http_verbs import rendicion_post, presentacion_post, validacion_post
 from .models import Rendicion, Presentacion
 
 
@@ -97,4 +97,22 @@ class PresentacionDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         if "action" in request.POST:
             return presentacion_post(request)
+        return super().post(request, *args, **kwargs)
+
+
+class ValidacionTemplateView(TemplateView):
+    """
+    Vista de Validaciones
+    """
+
+    template_name = "validacion.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Validaciones en la Blockchain"
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "action" in request.POST:
+            return validacion_post(request)
         return super().post(request, *args, **kwargs)

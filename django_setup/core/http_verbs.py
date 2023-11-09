@@ -40,3 +40,14 @@ def presentacion_post(request):
                 {"status": "ok", "url": reverse("core:presentacion_detail", kwargs={"pk": presentacion.pk})})
         else:
             return JsonResponse({"status": "error", "message": "Las presentaciones no coinciden"})
+
+
+def validacion_post(request):
+    if request.POST["action"] == "search_presentacion":
+        presentacion = Presentacion.objects.get(pk=request.POST["pk"])
+        contract = get_contract()
+        hash_list = contract.functions.getPresentation(presentacion.pk).call()
+        if hash_list:
+            return JsonResponse({"status": "ok", "hash_list": hash_list})
+        else:
+            return JsonResponse({"status": "error", "message": "No existe presentación"})
