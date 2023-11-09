@@ -31,7 +31,7 @@
                     {% for doc in presentacion.documento_set.all %}
                         <tr>
                             <td>{{ doc.documento_requerido }}</td>
-                            <td><a href="#}">{{ doc.nombre_archivo }}</a></td>
+                            <td>{{ doc.nombre_archivo }}</td>
                             <td>
                                 <a href="{{ doc.archivo.url }}" target="_blank"
                                    class="btn btn-outline-secondary">
@@ -46,7 +46,6 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="text-center">
-                        <button type="button" class="btn btn-success btn-validar">Validar Archivos</button>
                         <a href="{% url 'core:rendicion_detail' presentacion.rendicion.pk %}" class="btn btn-secondary">
                             Regresar
                         </a>
@@ -56,38 +55,3 @@
         </div>
     </div>
 {% endblock %}
-
-{% block body_scripts %}
-    <script>
-        $(document).ready(function () {
-            function ajaxPOST(url, data, success) {
-                let csrftoken = '{{ csrf_token }}';
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: data,
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    },
-                    success: success
-                });
-            }
-
-            $('.btn-validar').click(function () {
-                ajaxPOST(window.location.href, {
-                    'action': 'validar',
-                    'pk': '{{ presentacion.pk }}'
-                }, function (response) {
-                    if (response.status === "ok") {
-                        alert("Archivos validados correctamente");
-                    } else {
-                        alert(response.message);
-                    }
-                });
-            });
-        });
-
-    </script>
-{% endblock %}
-
