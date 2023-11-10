@@ -94,11 +94,6 @@ class PresentacionDetailView(DetailView):
         context["title"] = "Detalle de Presentación"
         return context
 
-    def post(self, request, *args, **kwargs):
-        if "action" in request.POST:
-            return presentacion_post(request)
-        return super().post(request, *args, **kwargs)
-
 
 class ValidacionTemplateView(TemplateView):
     """

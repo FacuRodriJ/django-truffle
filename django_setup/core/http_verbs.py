@@ -29,19 +29,6 @@ def rendicion_post(request):
              "message": "Presentación realizada con éxito, el hash utilizado es SHA256"})
 
 
-def presentacion_post(request):
-    if request.POST["action"] == "validar":
-        presentacion = Presentacion.objects.get(pk=request.POST["pk"])
-        contract = get_contract()
-        hash_list = contract.functions.getPresentation(presentacion.pk).call()
-        presentacion_hash_list = presentacion.get_hash_list()
-        if hash_list == presentacion_hash_list:
-            return JsonResponse(
-                {"status": "ok", "url": reverse("core:presentacion_detail", kwargs={"pk": presentacion.pk})})
-        else:
-            return JsonResponse({"status": "error", "message": "Las presentaciones no coinciden"})
-
-
 def validacion_post(request):
     if request.POST["action"] == "search_presentacion":
         presentacion = Presentacion.objects.get(pk=request.POST["pk"])
