@@ -60,7 +60,7 @@ class Presentacion(models.Model):
 
     rendicion = models.ForeignKey(Rendicion, on_delete=models.PROTECT)
     nro_presentacion = models.IntegerField()
-    fecha_presentacion = models.DateField(blank=True, null=True)
+    fecha_presentacion = models.DateTimeField(blank=True, null=True)
     estado = models.BooleanField(default=False)
 
     def get_estado(self):
