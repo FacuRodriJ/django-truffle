@@ -5,7 +5,7 @@ from django.urls import reverse
 from web3.logs import IGNORE
 
 from .models import Presentacion, Documento
-from .web3_connector import get_owner_adress, connector
+from django_setup.base.web3_connector import connector, get_owner_adress
 
 
 def rendicion_post(request):
@@ -17,7 +17,7 @@ def rendicion_post(request):
         if presentacion.documento_set.count() == 0:
             return JsonResponse({"status": "error", "message": "No hay documentos cargados"})
         presentacion.estado = True
-        presentacion.fecha_presentacion = datetime.date.today()
+        presentacion.fecha_presentacion = datetime.datetime.now()
 
         w3, contract = connector()
 
