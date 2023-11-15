@@ -89,24 +89,22 @@
     <script>
         $(document).ready(function () {
             function ajaxPOST(url, data, success) {
-                let csrftoken = '{{ csrf_token }}';
                 $.ajax({
                     url: url,
                     type: "POST",
                     data: data,
                     dataType: 'json',
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
                     },
                     success: success
                 });
             }
 
             $('.btn-delete').click(function () {
-                var pk = $(this).val();
                 ajaxPOST(window.location.href, {
                     'action': 'delete',
-                    'pk': pk
+                    'pk': $(this).val()
                 }, function (response) {
                     if (response.status === "ok") {
                         location.reload();
@@ -122,8 +120,22 @@
                     'pk': '{{ presentacion.pk }}'
                 }, function (response) {
                     if (response.status === "ok") {
-                        alert(response.message);
-                        window.location.href = response.url;
+                        let blockHash = response.blockHash;
+                        let blockNumber = response.blockNumber;
+                        let transactionHash = response.transactionHash;
+                        let presentacionId = response.presentacionId;
+                        Swal.fire({
+                            title: 'Presentación realizada',
+                            html: `
+                                Esta presentación se ha registrado en la blockchain, para validarla necesitará los siguientes datos:<br>
+                                <strong>Transaction Hash:</strong> ${transactionHash}<br>
+                                <strong>Presentación Id:</strong> ${presentacionId}<br>
+                            `,
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = response.url;
+                        });
                     } else {
                         alert(response.message);
                     }

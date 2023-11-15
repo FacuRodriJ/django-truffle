@@ -2,9 +2,10 @@ import datetime
 
 from django.http import JsonResponse
 from django.urls import reverse
+from web3.logs import IGNORE
 
-from .models import Rendicion, Presentacion, Documento
-from .web3_connector import get_contract, get_provider
+from .models import Presentacion, Documento
+from .web3_connector import get_contract, get_provider, owner_adress
 
 
 def rendicion_post(request):
@@ -20,21 +21,23 @@ def rendicion_post(request):
 
         w3 = get_provider()
         contract = get_contract()
-        contract.functions.addPresentation(presentacion.pk, presentacion.get_hash_list()).transact(
-            {"from": w3.eth.accounts[0]})
 
+        tx_hash = contract.functions.addPresentation(
+            presentacion.nro_presentacion,
+            presentacion.rendicion.anio,
+            presentacion.rendicion.periodo,
+            presentacion.rendicion.municipio.nombre,
+            presentacion.get_hash_list(),
+            presentacion.get_tipo_documento_list(),
+        ).transact({"from": owner_adress()})
+        tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+        data_transaction = contract.events.PresentationAdded().process_receipt(tx_receipt, errors=IGNORE)[0]
         presentacion.save()
-        return JsonResponse(
-            {"status": "ok", "url": reverse("core:rendicion_list"),
-             "message": "Presentación realizada con éxito, el hash utilizado es SHA256"})
-
-
-def validacion_post(request):
-    if request.POST["action"] == "search_presentacion":
-        presentacion = Presentacion.objects.get(pk=request.POST["pk"])
-        contract = get_contract()
-        hash_list = contract.functions.getPresentation(presentacion.pk).call()
-        if hash_list:
-            return JsonResponse({"status": "ok", "hash_list": hash_list})
-        else:
-            return JsonResponse({"status": "error", "message": "No existe presentación"})
+        return JsonResponse({
+            "status": "ok",
+            "url": reverse("core:rendicion_list"),
+            "blockHash": data_transaction["blockHash"].hex(),
+            "blockNumber": data_transaction["blockNumber"],
+            "transactionHash": data_transaction["transactionHash"].hex(),
+            "presentacionId": data_transaction["args"]["presentacionId"]
+        })

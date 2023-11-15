@@ -9,6 +9,10 @@ def get_provider():
     return w3
 
 
+def owner_adress():
+    return '0xfA6d1e9E3a56c18700775DBaB3d890D6DB12ce93'
+
+
 def get_contract():
     w3 = get_provider()
     current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -17,6 +21,6 @@ def get_contract():
     with open(contract_path, "r") as f:
         datastore_json = f.read()
     datastore_abi = json.loads(datastore_json)["abi"]
-    contract_address = '0xE675C87fBb126baf2f80B690eCdDDF4Fc7edB6A1'
+    contract_address = '0x378380eFE0f8cd4a0835cc7e3Cb7e23515D2bBCa'
     contract = w3.eth.contract(address=contract_address, abi=datastore_abi)
     return contract

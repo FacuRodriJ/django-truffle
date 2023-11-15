@@ -80,6 +80,13 @@ class Presentacion(models.Model):
             hash_list.append(hashlib.sha256(doc.archivo.read()).hexdigest())
         return hash_list
 
+    def get_tipo_documento_list(self):
+        documents = self.documento_set.all()
+        tipo_documento_list = []
+        for doc in documents:
+            tipo_documento_list.append(doc.documento_requerido.descripcion)
+        return tipo_documento_list
+
     class Meta:
         verbose_name = "Presentación"
         verbose_name_plural = "Presentaciones"
