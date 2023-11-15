@@ -5,7 +5,7 @@ from django.urls import reverse
 from web3.logs import IGNORE
 
 from .models import Presentacion, Documento
-from .web3_connector import get_contract, get_provider, owner_adress
+from .web3_connector import get_owner_adress, connector
 
 
 def rendicion_post(request):
@@ -19,8 +19,7 @@ def rendicion_post(request):
         presentacion.estado = True
         presentacion.fecha_presentacion = datetime.date.today()
 
-        w3 = get_provider()
-        contract = get_contract()
+        w3, contract = connector()
 
         tx_hash = contract.functions.addPresentation(
             presentacion.nro_presentacion,
@@ -29,7 +28,7 @@ def rendicion_post(request):
             presentacion.rendicion.municipio.nombre,
             presentacion.get_hash_list(),
             presentacion.get_tipo_documento_list(),
-        ).transact({"from": owner_adress()})
+        ).transact({"from": get_owner_adress()})
         tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         data_transaction = contract.events.PresentationAdded().process_receipt(tx_receipt, errors=IGNORE)[0]
         presentacion.save()
@@ -38,6 +37,7 @@ def rendicion_post(request):
             "url": reverse("core:rendicion_list"),
             "blockHash": data_transaction["blockHash"].hex(),
             "blockNumber": data_transaction["blockNumber"],
+            "contractAddress": data_transaction["address"],
             "transactionHash": data_transaction["transactionHash"].hex(),
             "presentacionId": data_transaction["args"]["presentacionId"]
         })

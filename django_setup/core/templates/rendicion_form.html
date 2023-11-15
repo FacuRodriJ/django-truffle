@@ -120,19 +120,19 @@
                     'pk': '{{ presentacion.pk }}'
                 }, function (response) {
                     if (response.status === "ok") {
-                        let blockHash = response.blockHash;
-                        let blockNumber = response.blockNumber;
-                        let transactionHash = response.transactionHash;
-                        let presentacionId = response.presentacionId;
                         Swal.fire({
                             title: 'Presentación realizada',
                             html: `
                                 Esta presentación se ha registrado en la blockchain, para validarla necesitará los siguientes datos:<br>
-                                <strong>Transaction Hash:</strong> ${transactionHash}<br>
-                                <strong>Presentación Id:</strong> ${presentacionId}<br>
+                                <strong>Hash del bloque:</strong> ${response.blockHash}<br>
+                                <strong>Número del bloque:</strong> ${response.blockNumber}<br>
+                                <strong>Dirección del contrato:</strong> ${response.contractAddress}<br>
+                                <strong>Hash de la transacción:</strong> ${response.transactionHash}<br>
+                                <strong>Presentación Id:</strong> ${response.presentacionId}<br>
                             `,
                             icon: 'success',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: 'Aceptar',
+                            allowOutsideClick: false,
                         }).then((result) => {
                             window.location.href = response.url;
                         });
