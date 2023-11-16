@@ -45,7 +45,7 @@ contract DocumentHashStorage {
         uint nro_presentacion,
         uint anio,
         uint periodo,
-        string munipicio
+        string munipicio,
         Documento[] documentos
     );
 
@@ -54,8 +54,8 @@ contract DocumentHashStorage {
         uint _anio,
         uint _periodo,
         string memory _munipicio,
-        string[] memory _tipos_documentos
-        string[] memory _hashIds,
+        string[] memory _tipos_documentos,
+        string[] memory _hashIds
     ) public onlyOwner {
         require(_hashIds.length == _tipos_documentos.length, "Hashes and document types must have the same length.");
 
@@ -77,7 +77,7 @@ contract DocumentHashStorage {
             presentacion.nro_presentacion,
             presentacion.anio,
             presentacion.periodo,
-            presentacion.munipicio
+            presentacion.munipicio,
             presentacion.documentos
         );
         presentacionesCount++;
