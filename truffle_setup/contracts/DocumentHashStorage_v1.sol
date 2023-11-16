@@ -22,8 +22,8 @@ contract DocumentHashStorage {
     }
 
     struct Documento {
-        string hashId;
         string tipo_documento;
+        string hashId;
     }
 
     struct Presentacion {
@@ -46,6 +46,7 @@ contract DocumentHashStorage {
         uint anio,
         uint periodo,
         string munipicio
+        Documento[] documentos
     );
 
     function addPresentation(
@@ -53,8 +54,8 @@ contract DocumentHashStorage {
         uint _anio,
         uint _periodo,
         string memory _munipicio,
-        string[] memory _hashIds,
         string[] memory _tipos_documentos
+        string[] memory _hashIds,
     ) public onlyOwner {
         require(_hashIds.length == _tipos_documentos.length, "Hashes and document types must have the same length.");
 
@@ -67,7 +68,7 @@ contract DocumentHashStorage {
         presentacion.munipicio = _munipicio;
 
         for (uint i = 0; i < _hashIds.length; i++) {
-            presentacion.documentos.push(Documento(_hashIds[i], _tipos_documentos[i]));
+            presentacion.documentos.push(Documento(_tipos_documentos[i], _hashIds[i]));
         }
 
         emit PresentationAdded(
@@ -77,6 +78,7 @@ contract DocumentHashStorage {
             presentacion.anio,
             presentacion.periodo,
             presentacion.munipicio
+            presentacion.documentos
         );
         presentacionesCount++;
     }
