@@ -15,11 +15,13 @@
 </head>
 
 <body>
-<nav class="navbar bg-primary mb-4">
-    <div class="container-fluid">
-        <h1>Tribunal de Cuentas</h1>
-    </div>
-</nav>
+{% block nav %}
+    <nav class="navbar bg-primary mb-4">
+        <div class="container-fluid">
+            <h1>Tribunal de Cuentas</h1>
+        </div>
+    </nav>
+{% endblock %}
 <div class="container">
     {% block content %}
     {% endblock %}
