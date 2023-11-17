@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 from web3.logs import IGNORE
 
-from django_setup.base.web3_connector import connector
+from base.web3_connector import connector
 
 
 class ValidacionView(TemplateView):

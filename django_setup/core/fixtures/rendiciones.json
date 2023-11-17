@@ -1,0 +1,152 @@
+[
+    {
+        "model": "core.rendicion",
+        "pk": 1,
+        "fields": {
+            "municipio": 540007,
+            "anio": 2023,
+            "periodo": 1,
+            "fecha_vto_presentacion": "2023-10-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 2,
+        "fields": {
+            "municipio": 540007,
+            "anio": 2023,
+            "periodo": 2,
+            "fecha_vto_presentacion": "2023-11-30"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 3,
+        "fields": {
+            "municipio": 540007,
+            "anio": 2023,
+            "periodo": 3,
+            "fecha_vto_presentacion": "2023-12-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 4,
+        "fields": {
+            "municipio": 540119,
+            "anio": 2023,
+            "periodo": 1,
+            "fecha_vto_presentacion": "2023-10-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 5,
+        "fields": {
+            "municipio": 540119,
+            "anio": 2023,
+            "periodo": 2,
+            "fecha_vto_presentacion": "2023-11-30"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 6,
+        "fields": {
+            "municipio": 540119,
+            "anio": 2023,
+            "periodo": 3,
+            "fecha_vto_presentacion": "2023-12-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 7,
+        "fields": {
+            "municipio": 540014,
+            "anio": 2023,
+            "periodo": 1,
+            "fecha_vto_presentacion": "2023-10-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 8,
+        "fields": {
+            "municipio": 540014,
+            "anio": 2023,
+            "periodo": 2,
+            "fecha_vto_presentacion": "2023-11-30"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 9,
+        "fields": {
+            "municipio": 540014,
+            "anio": 2023,
+            "periodo": 3,
+            "fecha_vto_presentacion": "2023-12-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 10,
+        "fields": {
+            "municipio": 540294,
+            "anio": 2023,
+            "periodo": 1,
+            "fecha_vto_presentacion": "2023-10-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 11,
+        "fields": {
+            "municipio": 540294,
+            "anio": 2023,
+            "periodo": 2,
+            "fecha_vto_presentacion": "2023-11-30"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 12,
+        "fields": {
+            "municipio": 540294,
+            "anio": 2023,
+            "periodo": 3,
+            "fecha_vto_presentacion": "2023-12-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 13,
+        "fields": {
+            "municipio": 540455,
+            "anio": 2023,
+            "periodo": 1,
+            "fecha_vto_presentacion": "2023-10-31"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 14,
+        "fields": {
+            "municipio": 540455,
+            "anio": 2023,
+            "periodo": 2,
+            "fecha_vto_presentacion": "2023-11-30"
+        }
+    },
+    {
+        "model": "core.rendicion",
+        "pk": 15,
+        "fields": {
+            "municipio": 540455,
+            "anio": 2023,
+            "periodo": 3,
+            "fecha_vto_presentacion": "2023-12-31"
+        }
+    }
+]

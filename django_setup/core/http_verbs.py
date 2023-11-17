@@ -5,7 +5,7 @@ from django.urls import reverse
 from web3.logs import IGNORE
 
 from .models import Presentacion, Documento
-from django_setup.base.web3_connector import connector, get_owner_adress
+from base.web3_connector import connector, get_owner_adress
 
 
 def rendicion_post(request):
