@@ -18,7 +18,7 @@
                         <label for="id_presentacion" class="form-label">Buscar por Presentación ID</label>
                         <input type="number" class="form-control" id="id_presentacion" name="presentacion_id">
                     </div>
-                    <button id="searchByID" type="button" class="btn btn-primary mb-3">Buscar</button>
+                    <button id="searchByPresentationID" type="button" class="btn btn-primary mb-3">Buscar</button>
                     <p>Datos de la presentación</p>
                     <ul class="list-group" id="list_presentacion">
                     </ul>
@@ -29,7 +29,7 @@
                         <label for="id_transaccion" class="form-label">Buscar por Hash de Transacción</label>
                         <input type="text" class="form-control" id="id_transaccion" name="transaccion_id">
                     </div>
-                    <button id="searchByHash" type="button" class="btn btn-primary mb-3">Buscar</button>
+                    <button id="searchByTransactionHash" type="button" class="btn btn-primary mb-3">Buscar</button>
                     <p>Datos de la transacción</p>
                     <ul class="list-group" id="list_transaccion">
                     </ul>
@@ -63,9 +63,9 @@
                 });
             }
 
-            $('#searchByID').click(function () {
+            $('#searchByPresentationID').click(function () {
                 ajaxPOST(window.location.href, {
-                    'action': 'searchByID',
+                    'action': 'searchByPresentationID',
                     'id': $('#id_presentacion').val()
                 }, function (response) {
                     if (response.status === "ok") {
@@ -83,7 +83,7 @@
 
             $('#searchByHash').click(function () {
                 ajaxPOST(window.location.href, {
-                    'action': 'searchByHash',
+                    'action': 'searchByTransactionHash',
                     'hash': $('#id_transaccion').val()
                 }, function (response) {
                     if (response.status === "ok") {

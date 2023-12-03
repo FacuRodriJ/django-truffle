@@ -26,8 +26,8 @@ def rendicion_post(request):
             presentacion.rendicion.anio,
             presentacion.rendicion.periodo,
             presentacion.rendicion.municipio.nombre,
-            presentacion.get_tipo_documento_list(),
-            presentacion.get_hash_list(),
+            presentacion.getAll_documento_descripcion(),
+            presentacion.getAll_documento_hash(),
         ).transact({"from": get_owner_adress()})
         tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         data_transaction = contract.events.PresentationAdded().process_receipt(tx_receipt, errors=IGNORE)[0]

@@ -18,7 +18,7 @@ class ValidacionView(TemplateView):
     def post(self, request, *args, **kwargs):
         if "action" in request.POST:
             data = {}
-            if request.POST["action"] == "searchByID":
+            if request.POST["action"] == "searchByPresentationID":
                 w3, contract = connector()
                 id = int(request.POST["id"])
                 presentacion = contract.functions.getPresentation(id).call()
@@ -31,7 +31,7 @@ class ValidacionView(TemplateView):
                 list_document = presentacion[5]
                 for i in range(len(list_document)):
                     data["Documento " + str(i + 1) + " (Tipo Doc. + Hash256)"] = list_document[i]
-            elif request.POST["action"] == "searchByHash":
+            elif request.POST["action"] == "searchByTransactionHash":
                 w3, contract = connector()
                 tx_hash = request.POST["hash"]
                 tx_receipt = w3.eth.get_transaction_receipt(tx_hash)

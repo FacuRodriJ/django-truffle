@@ -72,20 +72,25 @@ class Presentacion(models.Model):
     def __str__(self):
         return f"{self.rendicion} - {self.nro_presentacion}"
 
-    # Metodo para obtener el hash de cada archivo
-    def get_hash_list(self):
+    def getAll_documento_hash(self):
+        """
+        Devuelve una lista con todos los hash de los documentos de la presentacion
+        """
         documents = self.documento_set.all()
         hash_list = []
         for doc in documents:
             hash_list.append(hashlib.sha256(doc.archivo.read()).hexdigest())
         return hash_list
 
-    def get_tipo_documento_list(self):
+    def getAll_documento_descripcion(self):
+        """
+        Devuelve una lista con todas las descripciones de los documentos de la presentacion
+        """
         documents = self.documento_set.all()
-        tipo_documento_list = []
+        all_documento_descripcion = []
         for doc in documents:
-            tipo_documento_list.append(doc.documento_requerido.descripcion)
-        return tipo_documento_list
+            all_documento_descripcion.append(doc.documento_requerido.descripcion)
+        return all_documento_descripcion
 
     class Meta:
         verbose_name = "Presentación"
