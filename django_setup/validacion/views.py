@@ -21,7 +21,7 @@ class ValidacionView(TemplateView):
             if request.POST["action"] == "searchByPresentationID":
                 w3, contract = connector()
                 id = int(request.POST["id"])
-                presentacion = contract.functions.getPresentation(id).call()
+                presentacion = contract.functions.getPresentationById(id).call()
                 # Fecha de uint solidity a datetime
                 data["Fecha de presentacion"] = datetime.datetime.fromtimestamp(presentacion[0])
                 data["Nro. Presentacion"] = presentacion[1]

@@ -4,119 +4,119 @@ pragma solidity >=0.4.22 <0.9.0;
 
 contract DocumentHashStorage {
 
-    address public owner; // Dirección de la cuenta del propietario del contrato
+    // Dirección de la cuenta del propietario del contrato
+    address public owner;
 
+    // Función constructora que se ejecuta al momento de desplegar el contrato
     constructor() {
-        // Función que se ejecuta al momento de desplegar el contrato
         owner = msg.sender;
         addPresentation(0, 0, 0, "", new string[](0), new string[](0));
     }
 
+    // Modificador que permite ejecutar una función solo al propietario del contrato
     modifier onlyOwner() {
-        // Modificador que permite ejecutar una función solo al propietario del contrato
         require(msg.sender == owner, "Only owner can call this function.");
         _;
     }
 
+    // Función que permite cambiar el propietario del contrato
     function changeOwner(address _newOwner) public onlyOwner {
-        // Función que permite cambiar el propietario del contrato
         require(_newOwner != owner, "New owner must be different than current owner.");
         owner = _newOwner;
     }
 
-    struct Documento {
-        // Estructura que representa un Documento
-        string tipo_documento;
-        string hashId; // Hash del Documento
+    // Estructura que representa un Documento
+    struct Document {
+        string description;
+        string hashId;
     }
 
-    struct Presentacion {
-        // Estructura que representa una Presentación
-        uint256 fecha_presentacion;
-        uint nro_presentacion;
-        uint anio;
-        uint periodo;
-        string munipicio;
-        Documento[] documentos; // Lista de Documentos
+    // Estructura que representa una Presentación
+    struct Presentation {
+        uint256 presentationDatetime;
+        uint256 presentationNumber;
+        uint256 year;
+        uint256 period;
+        string municipio;
+        Document[] documents; // Lista de Documentos
     }
 
-    uint256 public presentacionesCount = 0; // Contador de Presentaciones
+    // Contador de Presentaciones
+    uint256 public presentationsCount = 0;
 
-    mapping(uint256 => Presentacion) public presentaciones;
     // Mapping que almacena las Presentaciones, donde la clave es el id de la Presentación y el valor es el struct Presentación.
-    // El id de la Presentación se asigna automáticamente al momento de agregar una nueva Presentación utilizando el contador presentacionesCount.
+    mapping(uint256 => Presentation) public presentations;
 
-    event PresentationAdded(
     // Evento que se emite al agregar una nueva Presentación
-    // El evento nos permite obtener los datos de la Presentación agregada desde el back-end
-        uint256 presentacionId,
-        uint256 fecha_presentacion,
-        uint nro_presentacion,
-        uint anio,
-        uint periodo,
-        string munipicio,
-        Documento[] documentos
+    event PresentationAdded(
+        uint256 indexed id,
+        uint256 presentationDatetime,
+        uint256 presentationNumber,
+        uint256 year,
+        uint256 period,
+        string municipio,
+        Document[] documents
     );
 
-    function addPresentation(
     // Función que permite agregar una nueva Presentación
-        uint _nro_presentacion,
-        uint _anio,
-        uint _periodo,
-        string memory _munipicio,
-        string[] memory _tipos_documentos,
+    function addPresentation(
+        uint256 _presentationNumber,
+        uint256 _year,
+        uint256 _period,
+        string memory _municipio,
+        string[] memory _description,
         string[] memory _hashIds
     ) public onlyOwner {
-        require(_hashIds.length == _tipos_documentos.length, "Hashes and document types must have the same length.");
-        // Verificamos que la cantidad de hashes y tipos de documentos sea la misma
+        require(_hashIds.length == _description.length, "Hashes and document descriptions must have the same length.");
 
-        Presentacion storage presentacion = presentaciones[presentacionesCount];
-        // Obtenemos la referencia a la Presentación que se va a agregar, utilizando el contador presentacionesCount como id de la Presentación
-        // storage (memoria persistente del contrato)
+        // Obtenemos la referencia a la Presentación que se va a agregar, utilizando el contador presentationsCount como id de la Presentación
+        Presentation storage presentation = presentations[presentationsCount];
 
-        presentacion.fecha_presentacion = block.timestamp;
-        presentacion.nro_presentacion = _nro_presentacion;
-        presentacion.anio = _anio;
-        presentacion.periodo = _periodo;
-        presentacion.munipicio = _munipicio;
+        presentation.presentationDatetime = block.timestamp;
+        presentation.presentationNumber = _presentationNumber;
+        presentation.year = _year;
+        presentation.period = _period;
+        presentation.municipio = _municipio;
 
+        // Recorremos los hashes y descripciones de documentos para agregarlos a la Presentación
         for (uint i = 0; i < _hashIds.length; i++) {
-            // Recorremos los hashes y tipos de documentos para agregarlos a la Presentación
-            presentacion.documentos.push(Documento(_tipos_documentos[i], _hashIds[i]));
+            presentation.documents.push(Document(_description[i], _hashIds[i]));
         }
 
-        emit PresentationAdded(
         // Emitimos el evento con los datos de la Presentación agregada
-            presentacionesCount,
-            presentacion.fecha_presentacion,
-            presentacion.nro_presentacion,
-            presentacion.anio,
-            presentacion.periodo,
-            presentacion.munipicio,
-            presentacion.documentos
+        emit PresentationAdded(
+            presentationsCount,
+            presentation.presentationDatetime,
+            presentation.presentationNumber,
+            presentation.year,
+            presentation.period,
+            presentation.municipio,
+            presentation.documents
         );
-        presentacionesCount++; // Incrementamos el contador de Presentaciones para que el próximo id sea diferente
+
+        // Incrementamos el contador de Presentaciones para que el próximo id sea diferente
+        presentationsCount++;
     }
 
-    function getPresentation(uint256 _presentacionId) public view returns (
     // Función que retorna los datos de una Presentación
+    function getPresentationById(uint256 _presentationId) public view returns (
         uint256,
-        uint,
-        uint,
-        uint,
+        uint256,
+        uint256,
+        uint256,
         string memory,
-        Documento[] memory
+        Document[] memory
     ) {
-        Presentacion memory presentacion = presentaciones[_presentacionId];
         // Obtenemos la referencia a la Presentación que se va a obtener utilizando el id de la Presentación
-        // memory (memoria volátil del contrato)
+        Presentation storage presentation = presentations[_presentationId];
+
         return (
-            presentacion.fecha_presentacion,
-            presentacion.nro_presentacion,
-            presentacion.anio,
-            presentacion.periodo,
-            presentacion.munipicio,
-            presentacion.documentos
+            presentation.presentationDatetime,
+            presentation.presentationNumber,
+            presentation.year,
+            presentation.period,
+            presentation.municipio,
+            presentation.documents
         );
     }
 }
