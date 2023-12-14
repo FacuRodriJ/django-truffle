@@ -2,11 +2,10 @@ import datetime
 
 from django.http import JsonResponse
 from django.urls import reverse
+from django.conf import settings
 from web3.logs import IGNORE
 
 from .models import Presentacion, Documento
-from base.web3_connector import connector, get_owner_adress
-
 
 def rendicion_post(request):
     if request.POST["action"] == "delete":
@@ -19,7 +18,8 @@ def rendicion_post(request):
         presentacion.estado = True
         presentacion.fecha_presentacion = datetime.datetime.now()
 
-        w3, contract = connector()
+        w3 = settings.WEB3_CONNECTION
+        contract = settings.WEB3_CONTRACT
 
         tx_hash = contract.functions.addPresentation(
             presentacion.nro_presentacion,
@@ -28,7 +28,7 @@ def rendicion_post(request):
             presentacion.rendicion.municipio.nombre,
             presentacion.getAll_documento_descripcion(),
             presentacion.getAll_documento_hash(),
-        ).transact({"from": get_owner_adress()})
+        ).transact({"from": settings.WEB3_OWNER_ADDRESS})
         tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         data_transaction = contract.events.PresentationAdded().process_receipt(tx_receipt, errors=IGNORE)[0]
         presentacion.save()
