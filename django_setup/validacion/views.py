@@ -41,7 +41,7 @@ class ValidacionView(TemplateView):
                 data_transaction = contract.events.PresentationAdded().process_receipt(
                     tx_receipt, errors=IGNORE
                 )[0]
-                data["Presentacion ID"] = data_transaction["args"]["presentacionId"]
+                data["Presentacion ID"] = data_transaction["args"]["id"]
                 data["Block Hash"] = data_transaction["blockHash"].hex()
                 data["Block Number"] = data_transaction["blockNumber"]
                 data["Contract Address"] = data_transaction["address"]
