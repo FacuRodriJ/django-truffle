@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core.apps.CoreConfig",
-    "validacion.apps.ValidacionConfig",
+    "validation.apps.ValidationConfig",
 ]
 
 MIDDLEWARE = [

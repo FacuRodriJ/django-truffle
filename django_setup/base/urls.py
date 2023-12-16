@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from core.views import RendicionFormView, RendicionListView, RendicionDetailView, PresentacionDetailView
+from validation.views import ValidacionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +29,8 @@ urlpatterns = [
     path('form-rendicion/<int:pk>/', RendicionFormView.as_view(), name='rendicion_form'),
     path('detalle-rendicion/<int:pk>/', RendicionDetailView.as_view(), name='rendicion_detail'),
     path('detalle-presentacion/<int:pk>/', PresentacionDetailView.as_view(), name='presentacion_detail'),
-    path('validacion/', include(("validacion.urls", "validacion"), namespace="validacion")),
+    path('validacion/', ValidacionView.as_view(), name="validacion_view")
+    # path('validacion/', include(("validation.urls", "validation"), namespace="validacion")),
 ]
 
 if settings.DEBUG:
