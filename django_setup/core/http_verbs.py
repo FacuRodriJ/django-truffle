@@ -34,7 +34,7 @@ def rendicion_post(request):
         presentacion.save()
         return JsonResponse({
             "status": "ok",
-            "url": reverse("core:rendicion_list"),
+            "url": reverse("rendicion_list"),
             "blockHash": data_transaction["blockHash"].hex(),
             "blockNumber": data_transaction["blockNumber"],
             "contractAddress": data_transaction["address"],

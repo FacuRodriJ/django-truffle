@@ -46,7 +46,7 @@ class RendicionFormView(FormView):
     form_class = DocumentoForm
 
     def get_success_url(self):
-        return reverse("core:rendicion_form", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("rendicion_form", kwargs={"pk": self.kwargs["pk"]})
 
     def get(self, request, *args, **kwargs):
         rendicion = Rendicion.objects.get(pk=self.kwargs["pk"])
