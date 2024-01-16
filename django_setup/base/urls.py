@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from core.views import RendicionFormView, RendicionListView, RendicionDetailView, PresentacionDetailView
 from validation.views import ValidacionView
@@ -30,7 +30,6 @@ urlpatterns = [
     path('detalle-rendicion/<int:pk>/', RendicionDetailView.as_view(), name='rendicion_detail'),
     path('detalle-presentacion/<int:pk>/', PresentacionDetailView.as_view(), name='presentacion_detail'),
     path('validacion/', ValidacionView.as_view(), name="validacion_view")
-    # path('validacion/', include(("validation.urls", "validation"), namespace="validacion")),
 ]
 
 if settings.DEBUG:
