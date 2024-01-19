@@ -39,5 +39,5 @@ def rendicion_post(request):
             "blockNumber": data_transaction["blockNumber"],
             "contractAddress": data_transaction["address"],
             "transactionHash": data_transaction["transactionHash"].hex(),
-            "presentacionId": data_transaction["args"]["id"],
+            "presentationCount": data_transaction["args"]["presentationCount"],
         })

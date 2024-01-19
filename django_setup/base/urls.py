@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path
 
 from core.views import RendicionFormView, RendicionListView, RendicionDetailView, PresentacionDetailView
@@ -24,7 +25,7 @@ from validation.views import ValidacionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include(("core.urls", "core"), namespace="core")),
+    path('', lambda request: redirect('rendicion_list', permanent=False)),
     path('rendiciones/', RendicionListView.as_view(), name='rendicion_list'),
     path('form-rendicion/<int:pk>/', RendicionFormView.as_view(), name='rendicion_form'),
     path('detalle-rendicion/<int:pk>/', RendicionDetailView.as_view(), name='rendicion_detail'),

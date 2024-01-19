@@ -1,5 +1,5 @@
-const DocumentHashStorage = artifacts.require("DocumentHashStorage");
+const PresentationStorage = artifacts.require("PresentationStorage");
 
 module.exports = function (deployer) {
-    deployer.deploy(DocumentHashStorage);
+    deployer.deploy(PresentationStorage);
 };

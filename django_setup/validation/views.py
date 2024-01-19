@@ -21,27 +21,24 @@ class ValidacionView(TemplateView):
             contract = settings.WEB3_CONTRACT
             if request.POST["action"] == "searchByPresentationID":
                 id = int(request.POST["id"])
-                presentacion = contract.functions.getPresentationById(id).call()
+                presentacion = contract.functions.getPresentationByCount(id).call()
                 # Fecha de uint solidity a datetime
-                data["Fecha de presentacion"] = datetime.datetime.fromtimestamp(
+                data["FechaPresentacion"] = datetime.datetime.fromtimestamp(
                     presentacion[0]
                 )
-                data["Nro. Presentacion"] = presentacion[1]
-                data["Año"] = presentacion[2]
+                data["NroPresentacion"] = presentacion[1]
+                data["Anio"] = presentacion[2]
                 data["Periodo"] = presentacion[3]
                 data["Municipio"] = presentacion[4]
-                list_document = presentacion[5]
-                for i in range(len(list_document)):
-                    data[
-                        "Documento " + str(i + 1) + " (Tipo Doc. + Hash256)"
-                    ] = list_document[i]
+                data["Documentos"] = presentacion[5]
+                data["Hashes"] = presentacion[6]
             elif request.POST["action"] == "searchByTransactionHash":
                 tx_hash = request.POST["hash"]
                 tx_receipt = w3.eth.get_transaction_receipt(tx_hash)
                 data_transaction = contract.events.PresentationAdded().process_receipt(
                     tx_receipt, errors=IGNORE
                 )[0]
-                data["Presentacion ID"] = data_transaction["args"]["id"]
+                data["Presentacion ID"] = data_transaction["args"]["presentationCount"]
                 data["Block Hash"] = data_transaction["blockHash"].hex()
                 data["Block Number"] = data_transaction["blockNumber"]
                 data["Contract Address"] = data_transaction["address"]

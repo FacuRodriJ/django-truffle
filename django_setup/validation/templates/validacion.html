@@ -26,6 +26,14 @@
                     <ul class="list-group" id="list_presentacion">
                     </ul>
                     <hr>
+                    <span>La función Hash que se utiliza para validar la integridad de los archivos es el SHA256 en formato hex (hexadecimal).</span>
+                    <br>
+                    <span>En los siguientes sitios web se puede verificar el hash de un archivo:</span>
+                    <ul>
+                        <li><a href="https://emn178.github.io/online-tools/sha256_checksum.html" target="_blank">https://emn178.github.io/online-tools/sha256_checksum.html</a></li>
+                        <li><a href="https://md5file.com/calculator" target="_blank">https://md5file.com/calculator</a></li>
+                        <li><a href="https://hash.online-convert.com/es/generador-sha256">https://hash.online-convert.com/es/generador-sha256</a></li>
+                    </ul>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-2">
@@ -75,9 +83,19 @@
                         // Armar la lista de datos
                         let list = $('#list_presentacion');
                         list.empty();
-                        $.each(response.data, function (key, value) {
-                            list.append('<li class="list-group-item"><b>' + key + '</b>: ' + value + '</li>');
+                        let data = response.data;
+                        let documentos = data.Documentos;
+                        let hashes = data.Hashes;
+                        list.append('<li class="list-group-item"><b>Fecha de Presentacion</b>: ' + data.FechaPresentacion + '</li>');
+                        list.append('<li class="list-group-item"><b>Nro. de Presentacion</b>: ' + data.NroPresentacion + '</li>');
+                        list.append('<li class="list-group-item"><b>Año</b>: ' + data.Anio + '</li>');
+                        list.append('<li class="list-group-item"><b>Período</b>: ' + data.Periodo + '</li>');
+                        list.append('<li class="list-group-item"><b>Municipio</b>: ' + data.Municipio + '</li>');
+                        list.append('<li class="list-group-item"><b>Documentos y Hashes</b></li>');
+                        $.each(documentos, function (key, value) {
+                            list.append('<li class="list-group-item"><b>Descripción</b>: ' + value + '<br><b>Hash del archivo</b>: ' + hashes[key] + '</li>');
                         });
+
                     } else {
                         alert(response.message);
                     }
