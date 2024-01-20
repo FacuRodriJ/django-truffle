@@ -5,15 +5,14 @@
         <div class="card-header">{{ title }}</div>
         <div class="card-body">
             <div class="row">
+                <p><strong>Nro. Presentación:</strong> {{ presentacion.nro_presentacion }}</p>
                 <div class="col-md-6">
                     <p><strong>Municipio:</strong> {{ presentacion.rendicion.municipio }}</p>
                     <p><strong>Año:</strong> {{ presentacion.rendicion.anio }}</p>
-                    <p><strong>Periodo:</strong> {{ presentacion.rendicion.periodo }}</p>
                 </div>
                 <div class="col-md-6">
+                    <p><strong>Periodo:</strong> {{ presentacion.rendicion.periodo }}</p>
                     <p><strong>Vencimiento:</strong> {{ presentacion.rendicion.fecha_vto_presentacion }}</p>
-                    <p><strong>Nro. Presentación:</strong> {{ presentacion.nro_presentacion }}</p>
-                    <p><strong>Id. Unico Presentación:</strong> {{ presentacion.pk }}</p>
                 </div>
             </div>
             <hr>
