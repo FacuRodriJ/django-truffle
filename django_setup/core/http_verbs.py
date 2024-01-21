@@ -20,6 +20,7 @@ def rendicion_post(request):
 
         w3 = settings.WEB3_CONNECTION
         contract = settings.WEB3_CONTRACT
+        owner_address = contract.functions.owner().call()
 
         tx_hash = contract.functions.addPresentation(
             presentacion.nro_presentacion,
@@ -28,7 +29,7 @@ def rendicion_post(request):
             presentacion.rendicion.municipio.nombre,
             presentacion.getAll_documento_descripcion(),
             presentacion.getAll_documento_hash(),
-        ).transact({"from": settings.WEB3_OWNER_ADDRESS})
+        ).transact({"from": owner_address})
         tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         data_transaction = contract.events.PresentationAdded().process_receipt(tx_receipt, errors=IGNORE)[0]
         presentacion.save()

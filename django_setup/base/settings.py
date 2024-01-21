@@ -135,22 +135,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 WEB3_PROVIDER_URI = "http://127.0.0.1:7545"  # Ganache default port
 
-WEB3_CONTRACT_ADDRESS = (
-    "0xD38e404dE3B48B8E60a09446697ba1FaEeB69b93"  # Change this to your contract address
-)
-
 WEB3_CONTRACT_JSON_PATH = os.path.join(
     BASE_DIR, "../truffle_setup/build/contracts/PresentationStorage.json"
 )
 
 with open(WEB3_CONTRACT_JSON_PATH, "r") as f:
-    datastore_json = f.read()
-    datastore_abi = json.loads(datastore_json)["abi"]
-
-WEB3_OWNER_ADDRESS = (
-    "0x6bdAC445c817C7c07b4cacFdafd164d3fef7c88b"  # Change this to your owner address
-)
+    datastore_json = json.load(f)
+    contract_abi = datastore_json["abi"]
+    contract_address = datastore_json["networks"]["5777"]["address"]
 
 WEB3_CONNECTION = Web3(Web3.HTTPProvider(WEB3_PROVIDER_URI))
 
-WEB3_CONTRACT = WEB3_CONNECTION.eth.contract(address=WEB3_CONTRACT_ADDRESS, abi=datastore_abi)
+WEB3_CONTRACT = WEB3_CONNECTION.eth.contract(address=contract_address, abi=contract_abi)
