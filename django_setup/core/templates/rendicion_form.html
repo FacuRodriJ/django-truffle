@@ -124,12 +124,12 @@
                         Swal.fire({
                             title: 'Presentación realizada',
                             html: `
-                                Esta presentación se ha registrado en la blockchain, para validarla necesitará los siguientes datos:<br>
+                                Esta presentación se ha registrado en la blockchain, para validarla necesitará los siguientes datos:<hr>
+                                <strong>Presentación ID:</strong> ${response.presentationCount}<br>
+                                <strong>Hash de la transacción:</strong> ${response.transactionHash}<br>
                                 <strong>Hash del bloque:</strong> ${response.blockHash}<br>
                                 <strong>Número del bloque:</strong> ${response.blockNumber}<br>
                                 <strong>Dirección del contrato:</strong> ${response.contractAddress}<br>
-                                <strong>Hash de la transacción:</strong> ${response.transactionHash}<br>
-                                <strong>Presentación ID:</strong> ${response.presentationCount}<br>
                             `,
                             icon: 'success',
                             confirmButtonText: 'Aceptar',
