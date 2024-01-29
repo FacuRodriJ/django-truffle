@@ -1,1 +1,62 @@
-[{"model": "core.documentorequerido", "pk": 1, "fields": {"descripcion": "Declaración Jurada de Responsables", "fecha_vig_desde": "2023-11-01", "fecha_vig_hasta": "2023-11-01", "obligatorio": true, "multicarga": false, "extensiones_permitidas": "pdf"}}, {"model": "core.documentorequerido", "pk": 2, "fields": {"descripcion": "Ordenanza General Impositiva y modificatorias", "fecha_vig_desde": "2023-11-01", "fecha_vig_hasta": "2023-11-01", "obligatorio": false, "multicarga": false, "extensiones_permitidas": "pdf"}}, {"model": "core.documentorequerido", "pk": 3, "fields": {"descripcion": "Ordenanza Presupuestaria", "fecha_vig_desde": "2023-11-01", "fecha_vig_hasta": "2023-11-01", "obligatorio": false, "multicarga": false, "extensiones_permitidas": "pdf"}}]
+[
+    {
+        "model": "core.documentorequerido",
+        "pk": 1,
+        "fields": {
+            "descripcion": "Declaración Jurada de Responsables",
+            "fecha_vig_desde": "2023-11-01",
+            "fecha_vig_hasta": "2023-11-01",
+            "obligatorio": true,
+            "multicarga": false,
+            "extensiones_permitidas": "pdf"
+        }
+    },
+    {
+        "model": "core.documentorequerido",
+        "pk": 2,
+        "fields": {
+            "descripcion": "Ordenanza General Impositiva y modificatorias",
+            "fecha_vig_desde": "2023-11-01",
+            "fecha_vig_hasta": "2023-11-01",
+            "obligatorio": false,
+            "multicarga": false,
+            "extensiones_permitidas": "xlsx"
+        }
+    },
+    {
+        "model": "core.documentorequerido",
+        "pk": 3,
+        "fields": {
+            "descripcion": "Ordenanza Presupuestaria",
+            "fecha_vig_desde": "2023-11-01",
+            "fecha_vig_hasta": "2023-11-01",
+            "obligatorio": false,
+            "multicarga": false,
+            "extensiones_permitidas": "zip,rar"
+        }
+    },
+    {
+        "model": "core.documentorequerido",
+        "pk": 4,
+        "fields": {
+            "descripcion": "Bce. Sumas y Saldo trimestral",
+            "fecha_vig_desde": "2023-11-01",
+            "fecha_vig_hasta": "2023-11-01",
+            "obligatorio": false,
+            "multicarga": false,
+            "extensiones_permitidas": "xlsx"
+        }
+    },
+    {
+        "model": "core.documentorequerido",
+        "pk": 5,
+        "fields": {
+            "descripcion": "Extractos Bancarios trimestrales",
+            "fecha_vig_desde": "2023-11-01",
+            "fecha_vig_hasta": "2023-11-01",
+            "obligatorio": false,
+            "multicarga": false,
+            "extensiones_permitidas": "zip,rar"
+        }
+    }
+]
