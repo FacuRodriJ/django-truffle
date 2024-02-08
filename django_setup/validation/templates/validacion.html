@@ -70,7 +70,10 @@
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
                     },
-                    success: success
+                    success: success,
+                    error: function (response) {
+                        alert('Error en la petición');
+                    }
                 });
             }
 
