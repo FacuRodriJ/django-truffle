@@ -41,9 +41,9 @@ class ValidacionView(TemplateView):
                         tx_receipt, errors=IGNORE
                     )[0]
                     data["Presentacion ID"] = data_transaction["args"]["presentationCount"]
-                    data["Block Hash"] = data_transaction["blockHash"].hex()
-                    data["Block Number"] = data_transaction["blockNumber"]
-                    data["Contract Address"] = data_transaction["address"]
+                    data["Hash del Bloque"] = data_transaction["blockHash"].hex()
+                    data["Nro del Bloque"] = data_transaction["blockNumber"]
+                    data["Dirección del Contrato"] = data_transaction["address"]
                 return JsonResponse({"status": "ok", "data": data})
             except Exception as e:
                 return JsonResponse({"status": "error", "message": str(e)})

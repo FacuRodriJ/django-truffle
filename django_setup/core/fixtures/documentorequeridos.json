@@ -15,19 +15,19 @@
         "model": "core.documentorequerido",
         "pk": 2,
         "fields": {
-            "descripcion": "Ordenanza General Impositiva y modificatorias",
+            "descripcion": "Planilla extraída de Mis Comprobantes A.F.I.P.",
             "fecha_vig_desde": "2023-11-01",
             "fecha_vig_hasta": "2023-11-01",
             "obligatorio": false,
             "multicarga": false,
-            "extensiones_permitidas": "xlsx"
+            "extensiones_permitidas": "pdf"
         }
     },
     {
         "model": "core.documentorequerido",
         "pk": 3,
         "fields": {
-            "descripcion": "Ordenanza Presupuestaria",
+            "descripcion": "Planilla de acreditación de haberes (macrosue.txt)",
             "fecha_vig_desde": "2023-11-01",
             "fecha_vig_hasta": "2023-11-01",
             "obligatorio": false,
@@ -44,19 +44,19 @@
             "fecha_vig_hasta": "2023-11-01",
             "obligatorio": false,
             "multicarga": false,
-            "extensiones_permitidas": "xlsx"
+            "extensiones_permitidas": "xls,xlsx"
         }
     },
     {
         "model": "core.documentorequerido",
         "pk": 5,
         "fields": {
-            "descripcion": "Extractos Bancarios trimestrales",
+            "descripcion": "A-1 – Plan de Cuentas",
             "fecha_vig_desde": "2023-11-01",
             "fecha_vig_hasta": "2023-11-01",
             "obligatorio": false,
             "multicarga": false,
-            "extensiones_permitidas": "zip,rar"
+            "extensiones_permitidas": "xls,xlsx"
         }
     }
 ]
